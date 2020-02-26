@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, Keyboard, Alert, Clipboard } from 'react-native';
 import Header from './components/Header';
 import Colors from './constants/colors';
+import TranslationResult from './components/TranslationResult';
 
 const App = () => {
   var dict = {
@@ -34,25 +35,45 @@ const App = () => {
   };
 
   const [enteredValue, setEnteredValue] = useState('');
+  const [translation, setTranslation] = useState('');
+
+  const englishInputHandler = inputText => {
+    console.log(inputText);
+    setEnteredValue(inputText);
+  };
 
   const resetInputHandler = () => {
-      setEnteredValue('');
-      setConfirmed(false);
+    setEnteredValue('');
   };
 
-  const confirmInputHandler = () => {
-      const chosenNumber = parseInt(enteredValue);
-      if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-          Alert.alert('Invalid number!', 'Number must be between 1 and 99', [
-              { text: 'Okay', style: 'destructive', onPress: resetInputHandler}])
-          return;
-      }
-      
-      setConfirmed(true);
-      setEnteredValue('');
-      setSelectedNumber(chosenNumber);
-      Keyboard.dismiss();
+  const englishTranslateHandler = () => {
+    var tempTranslation = '';
+
+    for (var i = 0; i < enteredValue.length; i++) {
+      var currentChar = enteredValue.charAt(i);
+      if (currentChar === ' ') {
+        tempTranslation += ' '
+      } else {
+        tempTranslation += dict[currentChar.toUpperCase()];
+      };
+    }
+
+    console.log(tempTranslation);
+    setTranslation(tempTranslation);
+    setEnteredValue('');
+    Keyboard.dismiss();
   };
+
+  const copyPressHandler = () => {
+    console.log('Setting clipboard to ' + translation);
+    Clipboard.setString(translation);
+  };
+
+  let resultScreen = <TranslationResult translationResult={translation} onPressCopy={copyPressHandler} />;
+
+  if (translation.length <= 0) {
+    resultScreen = <Text></Text>;
+  }
 
   return (
     <View style={styles.screen}>
@@ -60,16 +81,18 @@ const App = () => {
       <View style={styles.mainContentContainer}>
         <Text style={styles.overview}>This translator makes it easy to convert English to Tree Gnome and vice versa.</Text>
         <Text style={styles.formTitle}>English to Tree Gnome</Text>
-        <TextInput style={styles.translateInput} placeholder="Enter english phrase here"></TextInput>
+        <TextInput style={styles.translateInput} placeholder="Enter english phrase here" 
+          onChangeText={englishInputHandler} value={enteredValue}></TextInput>
         <View style={styles.buttonRow}>
           <View style={styles.button}>
-              <Button title="Translate" onPress={confirmInputHandler} color={Colors.primary}></Button>
+              <Button title="Translate" onPress={englishTranslateHandler} color={Colors.primary}></Button>
           </View>
           <View style={styles.button}>
               <Button title="Clear" onPress={resetInputHandler} color={Colors.accent}></Button>
           </View>
         </View>
       </View>
+      { resultScreen }
     </View>
   );
 };
