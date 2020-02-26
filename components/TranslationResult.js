@@ -1,23 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import colors from '../constants/colors';
 
 const TranslationResult = props => {
-    if (props.translationResult.length > 0) {
-        return (
-            <View style={styles.translationResult}>
-                <Text>That translates to:</Text>
-                <Text>{ props.translationResult }</Text>
-                <View style={styles.button}>
-                    <Button title="Copy" onPress={props.onPressCopy} color={colors.primary} />
-                </View>
+    return (
+        <View style={styles.translationResult}>
+            <Text>{ props.heading }</Text>
+            <Text>{ props.translationResult }</Text>
+            <View style={styles.button}>
+                <Button title={props.buttonTitle} onPress={props.onPressCopy} color={colors.primary}  />
             </View>
-        );
-    } else {
-        return (
-            <View></View>
-        );
-    }
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -28,7 +22,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     button: {
-        width: 80,
+        width: 100,
         marginVertical: 5
     }
 });

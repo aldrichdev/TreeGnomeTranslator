@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, Keyboard, Alert, Clipboard } from 'react-native';
+import { StyleSheet, View, Text, Keyboard, Alert, Clipboard, ScrollView } from 'react-native';
 import Header from './components/Header';
-import Colors from './constants/colors';
 import TranslationResult from './components/TranslationResult';
+import LanguageTranslator from './components/LanguageTranslator';
 
 const App = () => {
   var dict = {
@@ -34,23 +34,32 @@ const App = () => {
     "Z": "dim"
   };
 
-  const [enteredValue, setEnteredValue] = useState('');
+  const [enteredEnglishPhrase, setEnteredEnglishPhrase] = useState('');
+  const [enteredTreeGnomePhrase, setEnteredTreeGnomePhrase] = useState('');
   const [translation, setTranslation] = useState('');
 
   const englishInputHandler = inputText => {
     console.log(inputText);
-    setEnteredValue(inputText);
+    setEnteredEnglishPhrase(inputText);
   };
 
-  const resetInputHandler = () => {
-    setEnteredValue('');
+  const treeGnomeInputHandler = inputText => {
+    setEnteredTreeGnomePhrase(inputText);
   };
+
+  const resetEnglishInputHandler = () => {
+    setEnteredEnglishPhrase('');
+  };
+
+  const resetTreeGnomeInputHandler = () => {
+    setEnteredTreeGnomePhrase('');
+  }
 
   const englishTranslateHandler = () => {
     var tempTranslation = '';
 
-    for (var i = 0; i < enteredValue.length; i++) {
-      var currentChar = enteredValue.charAt(i);
+    for (var i = 0; i < enteredEnglishPhrase.length; i++) {
+      var currentChar = enteredEnglishPhrase.charAt(i);
       if (currentChar === ' ') {
         tempTranslation += ' '
       } else {
@@ -58,18 +67,57 @@ const App = () => {
       };
     }
 
-    console.log(tempTranslation);
     setTranslation(tempTranslation);
-    setEnteredValue('');
+    setEnteredEnglishPhrase('');
+    Keyboard.dismiss();
+  };
+
+  const treeGnomeTranslateHandler = () => {
+    var tempInput = enteredTreeGnomePhrase;
+    var tempTranslation = '';
+
+    if (tempInput.length < 2) {
+      Alert.alert("Invalid Input", "You must enter a gnome phrase of 2 characters or more.");
+      return;
+    };
+
+    while (tempInput.length > 0) {
+      var firstTwoChars = tempInput.substring(0, 2).toLowerCase();
+      var matchingKey = getKeyByValue(dict, firstTwoChars);
+  
+      if (matchingKey !== undefined) {
+        tempTranslation += matchingKey;
+        tempInput = tempInput.substr(2);
+      } else {
+        var firstThreeChars = tempInput.substring(0, 3).toLowerCase();
+        matchingKey = getKeyByValue(dict, firstThreeChars);
+  
+        if (matchingKey !== undefined) {
+          tempTranslation += matchingKey;
+          tempInput = tempInput.substr(3);
+        } else {
+          Alert.alert("Translation Failed", "Your tree gnome phrase was not understood.");
+        };
+      };
+    };
+
+    setTranslation(tempTranslation);
+    setEnteredTreeGnomePhrase('');
     Keyboard.dismiss();
   };
 
   const copyPressHandler = () => {
     console.log('Setting clipboard to ' + translation);
     Clipboard.setString(translation);
+    Alert.alert('Copied!');
   };
 
-  let resultScreen = <TranslationResult translationResult={translation} onPressCopy={copyPressHandler} />;
+  const getKeyByValue = (object, value) => {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+
+  let resultScreen = <TranslationResult translationResult={translation} buttonTitle="Copy" heading="That translates to:" 
+    onPressCopy={copyPressHandler} />;
 
   if (translation.length <= 0) {
     resultScreen = <Text></Text>;
@@ -78,21 +126,17 @@ const App = () => {
   return (
     <View style={styles.screen}>
       <Header title="Tree Gnome Translator"></Header>
-      <View style={styles.mainContentContainer}>
-        <Text style={styles.overview}>This translator makes it easy to convert English to Tree Gnome and vice versa.</Text>
-        <Text style={styles.formTitle}>English to Tree Gnome</Text>
-        <TextInput style={styles.translateInput} placeholder="Enter english phrase here" 
-          onChangeText={englishInputHandler} value={enteredValue}></TextInput>
-        <View style={styles.buttonRow}>
-          <View style={styles.button}>
-              <Button title="Translate" onPress={englishTranslateHandler} color={Colors.primary}></Button>
-          </View>
-          <View style={styles.button}>
-              <Button title="Clear" onPress={resetInputHandler} color={Colors.accent}></Button>
-          </View>
+      <ScrollView>
+        <View style={styles.mainContentContainer}>
+          <Text style={styles.overview}>This translator makes it easy to convert English to Tree Gnome and vice versa.</Text>
+          <LanguageTranslator formTitle="English to Tree Gnome" placeholder="Enter english phrase here" value={enteredEnglishPhrase}
+            onChangeText={englishInputHandler} onPress={englishTranslateHandler} onReset={resetEnglishInputHandler} />
+          <LanguageTranslator formTitle="Tree Gnome to English" placeholder="Enter tree gnome phrase here" value={enteredTreeGnomePhrase}
+            onChangeText={treeGnomeInputHandler} onPress={treeGnomeTranslateHandler} onReset={resetTreeGnomeInputHandler} />
         </View>
-      </View>
-      { resultScreen }
+        { resultScreen }
+      </ScrollView>
+
     </View>
   );
 };
@@ -111,29 +155,7 @@ const styles = StyleSheet.create({
   overview: {
     color: 'black',
     textAlign: 'center'
-  },
-  formTitle: {
-    marginVertical: 15,
-    fontSize: 16,
-    textAlign: 'center'
-  },
-  translateInput: {
-    height: 40,
-    width: 300,
-    borderColor: 'grey',
-    borderWidth: 2
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 15
-  },
-  button: {
-      width: 100
-  },
+  }
 });
 
 export default App;
