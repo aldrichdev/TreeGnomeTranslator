@@ -1,8 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Clipboard, Alert } from 'react-native';
 import Colors from '../constants/colors';
+import TranslationResult from '../components/TranslationResult';
 
 const LanguageTranslator = props => {
+    const copyPressHandler = () => {
+        Clipboard.setString(props.translation);
+        Alert.alert('Copied!');
+    };
+
+    let resultScreen = <TranslationResult translationResult={props.translation} buttonTitle="Copy" heading="That translates to:" 
+        onPressCopy={copyPressHandler} />;
+
+    if (props.translation.length <= 0) {
+        resultScreen = <Text></Text>;
+    };
     return (
         <View>
             <Text style={styles.formTitle}>{props.formTitle}</Text>
@@ -16,6 +28,7 @@ const LanguageTranslator = props => {
                     <Button title="Clear" onPress={props.onReset} color={Colors.accent}></Button>
                 </View>
             </View>
+            { resultScreen }
         </View>
     );
 };

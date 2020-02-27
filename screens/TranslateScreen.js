@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Keyboard, Alert, Clipboard, ScrollView } from 'react-native';
-import TranslationResult from '../components/TranslationResult';
+import { View, Text, StyleSheet, Keyboard, Alert, ScrollView } from 'react-native';
 import LanguageTranslator from '../components/LanguageTranslator';
 
 const TranslateScreen = props => {
@@ -35,7 +34,8 @@ const TranslateScreen = props => {
 
     const [enteredEnglishPhrase, setEnteredEnglishPhrase] = useState('');
     const [enteredTreeGnomePhrase, setEnteredTreeGnomePhrase] = useState('');
-    const [translation, setTranslation] = useState('');
+    const [englishTranslation, setEnglishTranslation] = useState('');
+    const [treeGnomeTranslation, setTreeGnomeTranslation] = useState('');
 
     const englishInputHandler = inputText => {
         setEnteredEnglishPhrase(inputText);
@@ -65,7 +65,7 @@ const TranslateScreen = props => {
             };
         };
 
-        setTranslation(tempTranslation);
+        setTreeGnomeTranslation(tempTranslation);
         setEnteredEnglishPhrase('');
         Keyboard.dismiss();
     };
@@ -125,25 +125,13 @@ const TranslateScreen = props => {
             };
         };
 
-        setTranslation(tempTranslation);
+        setEnglishTranslation(tempTranslation);
         setEnteredTreeGnomePhrase('');
         Keyboard.dismiss();
     };
 
-    const copyPressHandler = () => {
-        Clipboard.setString(translation);
-        Alert.alert('Copied!');
-    };
-
     const getKeyByValue = (object, value) => {
         return Object.keys(object).find(key => object[key] === value);
-    };
-
-    let resultScreen = <TranslationResult translationResult={translation} buttonTitle="Copy" heading="That translates to:" 
-        onPressCopy={copyPressHandler} />;
-
-    if (translation.length <= 0) {
-        resultScreen = <Text></Text>;
     };
 
     return (
@@ -152,11 +140,12 @@ const TranslateScreen = props => {
                 <View style={styles.mainContentContainer}>
                     <Text style={styles.overview}>{props.heading}</Text>
                     <LanguageTranslator formTitle={props.englishFormTitle} placeholder={props.englishFormPlaceholder} value={enteredEnglishPhrase}
-                        onChangeText={englishInputHandler} onPress={englishTranslateHandler} onReset={resetEnglishInputHandler} />
+                        onChangeText={englishInputHandler} onPress={englishTranslateHandler} onReset={resetEnglishInputHandler} 
+                        translation={treeGnomeTranslation} />
                     <LanguageTranslator formTitle={props.treeGnomeFormTitle} placeholder={props.treeGnomeFormPlaceholder} value={enteredTreeGnomePhrase}
-                        onChangeText={treeGnomeInputHandler} onPress={treeGnomeTranslateHandler} onReset={resetTreeGnomeInputHandler} />
+                        onChangeText={treeGnomeInputHandler} onPress={treeGnomeTranslateHandler} onReset={resetTreeGnomeInputHandler}
+                        translation={englishTranslation} />
                 </View>
-                { resultScreen }
             </ScrollView>
         </View>
     );
