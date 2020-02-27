@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, Button, Clipboard, Alert } from 'react-native';
 import Colors from '../constants/colors';
 import TranslationResult from '../components/TranslationResult';
+import Card from '../components/Card';
 
 const LanguageTranslator = props => {
     const copyPressHandler = () => {
@@ -9,8 +10,8 @@ const LanguageTranslator = props => {
         Alert.alert('Copied!');
     };
 
-    let resultScreen = <TranslationResult translationResult={props.translation} buttonTitle="Copy" heading="That translates to:" 
-        onPressCopy={copyPressHandler} />;
+    let resultScreen = <Card><TranslationResult translationResult={props.translation} buttonTitle="Copy" heading="That translates to:" 
+        onPressCopy={copyPressHandler} /></Card>;
 
     if (props.translation.length <= 0) {
         resultScreen = <Text></Text>;

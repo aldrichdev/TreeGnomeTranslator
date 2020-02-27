@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const Header = props => {
     return (
@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
     headerText: {
         color: 'white',
         fontSize: 16
+    },
+    menuButtonImage: {
+        width: 25,
+        height: 25
     }
 });
 
