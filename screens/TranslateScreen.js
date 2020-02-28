@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Keyboard, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Keyboard, Alert, ScrollView, Button } from 'react-native';
 import LanguageTranslator from '../components/LanguageTranslator';
 
 const TranslateScreen = props => {

@@ -2,19 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Header from './components/Header';
 import TranslateScreen from './screens/TranslateScreen';
+import Navigator from './navigation/Navigator';
 
 const App = () => {
-  return (
-    <View style={styles.screen}>
-      <Header title="Tree Gnome Translator"></Header>
-      <TranslateScreen 
-        heading="This translator makes it easy to convert English to Tree Gnome and vice versa." 
-        englishFormTitle="English to Tree Gnome"
-        englishFormPlaceholder = "Enter english phrase here" 
-        treeGnomeFormTitle="Tree Gnome to English"
-        treeGnomeFormPlaceholder="Enter tree gnome phrase here" />
-    </View>
-  );
+  return (<Navigator />);
 };
 
 const styles = StyleSheet.create({
