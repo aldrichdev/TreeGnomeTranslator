@@ -6,7 +6,7 @@ const TranslationResult = props => {
     return (
         <View style={styles.translationResult}>
             <Text>{ props.heading }</Text>
-            <Text>{ props.translationResult }</Text>
+            <Text selectable={true}>{ props.translationResult }</Text>
             <View style={styles.button}>
                 <Button title={props.buttonTitle} onPress={props.onPressCopy} color={colors.primary}  />
             </View>

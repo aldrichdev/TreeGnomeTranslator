@@ -38,6 +38,7 @@ const TranslateScreen = props => {
     const [treeGnomeTranslation, setTreeGnomeTranslation] = useState('');
 
     const englishInputHandler = inputText => {
+        console.log('hello??');
         setEnteredEnglishPhrase(inputText);
     };
 
