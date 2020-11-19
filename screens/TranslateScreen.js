@@ -36,9 +36,10 @@ const TranslateScreen = props => {
     const [enteredTreeGnomePhrase, setEnteredTreeGnomePhrase] = useState('');
     const [englishTranslation, setEnglishTranslation] = useState('');
     const [treeGnomeTranslation, setTreeGnomeTranslation] = useState('');
+    const [shouldShowEnglishCard, setShouldShowEnglishCard] = useState(0);
+    const [shouldShowTreeGnomeCard, setShouldShowTreeGnomeCard] = useState(0);
 
     const englishInputHandler = inputText => {
-        console.log('hello??');
         setEnteredEnglishPhrase(inputText);
     };
 
@@ -72,6 +73,7 @@ const TranslateScreen = props => {
         };
 
         setTreeGnomeTranslation(tempTranslation);
+        setShouldShowEnglishCard(1);
         setEnteredEnglishPhrase('');
         Keyboard.dismiss();
     };
@@ -143,6 +145,7 @@ const TranslateScreen = props => {
         };
 
         setEnglishTranslation(tempTranslation);
+        setShouldShowTreeGnomeCard(1);
         setEnteredTreeGnomePhrase('');
         Keyboard.dismiss();
     };
@@ -158,10 +161,12 @@ const TranslateScreen = props => {
                     <Text style={styles.overview}>{props.heading}</Text>
                     <LanguageTranslator formTitle={props.englishFormTitle} placeholder={props.englishFormPlaceholder} value={enteredEnglishPhrase}
                         onChangeText={englishInputHandler} onPress={englishTranslateHandler} onReset={resetEnglishInputHandler} 
-                        translation={treeGnomeTranslation} />
+                        translation={treeGnomeTranslation} translationInput="English" shouldShowEnglishCard={shouldShowEnglishCard} 
+                        setShouldShowEnglishCard={setShouldShowEnglishCard} />
                     <LanguageTranslator formTitle={props.treeGnomeFormTitle} placeholder={props.treeGnomeFormPlaceholder} value={enteredTreeGnomePhrase}
                         onChangeText={treeGnomeInputHandler} onPress={treeGnomeTranslateHandler} onReset={resetTreeGnomeInputHandler}
-                        translation={englishTranslation} />
+                        translation={englishTranslation} translationInput="TreeGnome" shouldShowTreeGnomeCard={shouldShowTreeGnomeCard} 
+                        setShouldShowTreeGnomeCard={setShouldShowTreeGnomeCard} />
                 </View>
             </ScrollView>
         </View>

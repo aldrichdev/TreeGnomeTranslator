@@ -4,25 +4,32 @@ import Colors from '../constants/colors';
 import TranslationResult from '../components/TranslationResult';
 import Card from '../components/Card';
 
-const LanguageTranslator = props => {
+const LanguageTranslator = (props) => {
+    console.log("Render happened");
+
     const clearPressHandler = () => {
-        console.log('hello clear');
         props.onReset();
-        // The following doesn't work because RN already returned the JSX.
-        // Is there a way to re-return it or something?
-        resultScreen = <Text></Text>;
+        if (props.translationInput == "English") {
+            props.setShouldShowEnglishCard(0);
+        } else {
+            props.setShouldShowTreeGnomeCard(0);
+        }
     };
+
     const copyPressHandler = () => {
         Clipboard.setString(props.translation);
         Alert.alert('Copied!');
     };
 
-    let resultScreen = <Card><TranslationResult translationResult={props.translation} buttonTitle="Copy" heading="That translates to:" 
-        onPressCopy={copyPressHandler} /></Card>;
+    let resultScreen = <Text></Text>;
 
-    if (props.translation.length <= 0) {
-        resultScreen = <Text></Text>;
-    };
+    if (((props.translationInput == "English" && props.shouldShowEnglishCard == 1) || 
+            (props.translationInput != "English" && props.shouldShowTreeGnomeCard == 1))
+        && props.translation.length > 0) {
+        resultScreen = <Card><TranslationResult translationResult={props.translation} buttonTitle="Copy" heading="That translates to:" 
+            onPressCopy={copyPressHandler} /></Card>;
+    }
+
     return (
         <View style={styles.translator}>
             <Text style={styles.formTitle}>{props.formTitle}</Text>
