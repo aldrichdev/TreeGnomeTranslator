@@ -3,10 +3,10 @@ import { StyleSheet, SafeAreaView, Text, View, Button } from 'react-native';
 import Header from '../components/Header';
 import TranslateScreen from '../screens/TranslateScreen';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
-        <View style={styles.screen}>
-            <Header title="Tree Gnome Translator"></Header>
+        <SafeAreaView style={styles.screen}>
+            <Header title="Tree Gnome Translator" nav={navigation}></Header>
             <SafeAreaView>
               <TranslateScreen
                   heading="This translator makes it easy to convert English to Tree Gnome and vice versa."
@@ -15,7 +15,7 @@ const HomeScreen = () => {
                   treeGnomeFormTitle="Tree Gnome to English"
                   treeGnomeFormPlaceholder="Enter tree gnome phrase here" />
             </SafeAreaView>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, SafeAreaView, Text, Button, StyleSheet } from 'react-native';
 
-const TestScreen = props => {
+const TestScreen = ({navigation}) => {
     return (
-        <View><Text>This is the test screen.</Text></View>
+        <SafeAreaView>
+            <Text>This is the test screen.</Text>
+            <Button onPress={() => navigation.goBack()} title="Go back home" />
+
+        </SafeAreaView>
     );
 };
 

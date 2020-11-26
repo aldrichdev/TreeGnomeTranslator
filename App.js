@@ -1,30 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-import Header from './components/Header';
-import TranslateScreen from './screens/TranslateScreen';
+import { View, Button, SafeAreaView, Text } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
+import TestScreen from './screens/TestScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 
-const App = () => {
+const Drawer = createDrawerNavigator();
+
+export default function App() {
   return (
-      <SafeAreaView>
-          <HomeScreen />
-      </SafeAreaView>
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Test" component={TestScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
-};
+}
 
-export default App;
+// function NewHomeScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button
+//         onPress={() => navigation.navigate('Notifications')}
+//         title="Go to notifications"
+//       />
+//     </View>
+//   );
+// }
+
+// function NotificationsScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button onPress={() => navigation.goBack()} title="Go back home" />
+//     </View>
+//   );
+// }
