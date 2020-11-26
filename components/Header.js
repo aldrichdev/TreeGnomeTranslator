@@ -4,7 +4,9 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 const Header = props => {
     return (
         <View style={styles.header}>
-            <Text style={styles.headerText}>{props.title}</Text>
+            <TouchableOpacity>
+                <Text style={styles.headerText}>{props.title}</Text>
+            </TouchableOpacity>
         </View>
     );
 };
