@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Keyboard, Alert, ScrollView } from 'react-native';
-import LanguageTranslator from '../components/LanguageTranslator';
+import LanguageTranslator from '../../components/LanguageTranslator';
 
-const TranslateScreen = props => {
+const TranslateSubScreen = props => {
     var dict = {
         "A": ":v",
         "B": "x:",
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TranslateScreen;
+export default TranslateSubScreen;
