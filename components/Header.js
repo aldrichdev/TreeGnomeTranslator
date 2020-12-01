@@ -7,7 +7,7 @@ const Header = props => {
             <TouchableOpacity style={styles.hamburgerContainer} 
                 onPress={props.nav.openDrawer}>
                 <Image style={styles.hamburgerMenuIcon} 
-                    source={require('../assets/Hamburger_icon.png')}>
+                    source={require('../assets/Hamburger_icon_white.png')}>
                 </Image>
             </TouchableOpacity>
             <Text style={styles.headerText}>{props.title}</Text>
@@ -21,13 +21,11 @@ const styles = StyleSheet.create({
         height: 75,
         backgroundColor: 'green',
         alignItems: 'center',
-        justifyContent: 'center',
-        //flex: 1, // this breaks the header container but might be the right solution to get the hamburger on the left side...  no idea how to fix
-        //flexDirection: 'column'
+        justifyContent: 'center'  
     },
     hamburgerContainer: {
-        flexBasis: '30%',
-        justifyContent: 'center',
+        position: 'absolute',
+        left: 15
     },
     hamburgerMenuIcon: {
         height: 30,
@@ -35,13 +33,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         color: 'white',
-        fontSize: 16,
-        //flexBasis: '70%',
-        //height: 50
-    },
-    menuButtonImage: {
-        width: 25,
-        height: 25
+        fontSize: 16
     }
 });
 

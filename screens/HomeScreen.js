@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, Text, View, Button } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
 import Header from '../components/Header';
 import TranslateScreen from '../screens/TranslateScreen';
 
 const HomeScreen = ({navigation}) => {
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView>
             <Header title="Tree Gnome Translator" nav={navigation}></Header>
             <SafeAreaView>
               <TranslateScreen
@@ -18,12 +18,5 @@ const HomeScreen = ({navigation}) => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    // flex: 1 // This makes everything invisible unless they have a static height OR flex: 1 too. Why did we add it in the first place?
-    alignItems: 'center'
-  }
-});
 
 export default HomeScreen;

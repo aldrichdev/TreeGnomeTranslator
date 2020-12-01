@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Keyboard, Alert, ScrollView, Button } from 'react-native';
+import { View, Text, StyleSheet, Keyboard, Alert, ScrollView } from 'react-native';
 import LanguageTranslator from '../components/LanguageTranslator';
 
 const TranslateScreen = props => {
@@ -155,7 +155,7 @@ const TranslateScreen = props => {
     };
 
     return (
-        <View style={styles.scrollView}>
+        <View>
             <ScrollView>
                 <View style={styles.mainContentContainer}>
                     <Text style={styles.overview}>{props.heading}</Text>
@@ -174,9 +174,6 @@ const TranslateScreen = props => {
 };
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1
-    },
     mainContentContainer: {
         marginHorizontal: 20,
         marginVertical: 15,

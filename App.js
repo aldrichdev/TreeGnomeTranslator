@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Button, SafeAreaView, Text } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import TestScreen from './screens/TestScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, Text, Button, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, Button, StyleSheet } from 'react-native';
 
 const TestScreen = ({navigation}) => {
     return (
