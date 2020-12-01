@@ -1,8 +1,10 @@
 import React from 'react';
-import HomeScreen from './screens/HomeScreen';
-import TestScreen from './screens/TestScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from './screens/HomeScreen';
+import DictionaryScreen from './screens/DictionaryScreen';
+import TestScreen from './screens/TestScreen';
+import HeOrBvScreen from './screens/HeOrBvScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -10,7 +12,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Home (Translator)" component={HomeScreen} />
+        <Drawer.Screen name="Dictionary" component={DictionaryScreen} />
+        <Drawer.Screen name="HE or BV?" component={HeOrBvScreen} />
         <Drawer.Screen name="Test" component={TestScreen} />
       </Drawer.Navigator>
     </NavigationContainer>

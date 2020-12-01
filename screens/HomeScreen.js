@@ -6,10 +6,10 @@ import TranslateSubScreen from './subscreens/TranslateSubScreen';
 const HomeScreen = ({navigation}) => {
     return (
         <SafeAreaView>
-            <Header title="Tree Gnome Translator" nav={navigation}></Header>
+            <Header title="Home" nav={navigation}></Header>
             <SafeAreaView>
               <TranslateSubScreen
-                  heading="This translator makes it easy to convert English to Tree Gnome and vice versa."
+                  heading="This Tree Gnome Translator makes it easy to convert English to Tree Gnome and vice versa."
                   englishFormTitle="English to Tree Gnome"
                   englishFormPlaceholder = "Enter english phrase here"
                   treeGnomeFormTitle="Tree Gnome to English"
